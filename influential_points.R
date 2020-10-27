@@ -25,7 +25,7 @@ infl_analysis = function(l_m, df){
   
   extdf = data.frame(Values = rstudent(l_m), Row_Num = row_num, Type = rep('Externally Standardized Residuals', length(row_num)), Point_Type = rep('Outlier', length(row_num)), Bound1 = 3, Bound2 = -3)
   extdf$Label = NA
-  inds = which(rstandard(l_m) > 3 | rstandard(l_m) < -3)
+  inds = which(rstudent(l_m) > 3 | rstudent(l_m) < -3)
   if(length(inds)!=0){extdf$Label[inds] = response_v$y[inds]}
   
   #Influential
