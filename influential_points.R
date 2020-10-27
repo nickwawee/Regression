@@ -53,6 +53,6 @@ library(ggplot2)
 library(ggrepel)
 ggplot(data= ret_df, aes(x= Row_Num, y = Values))+
   geom_point()+
-  facet_wrap(~Type, scales = "free_y")+plot_opts+geom_line(aes(y=Bound1))+geom_line(aes(y=Bound2))+
+  facet_wrap(~Type, scales = "free_y")+geom_line(aes(y=Bound1))+geom_line(aes(y=Bound2))+
   geom_label_repel(aes(label=Label))+
   labs(title = 'Influential Point Analysis', x = 'Observation Number')
