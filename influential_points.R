@@ -16,33 +16,33 @@ infl_analysis = function(l_m, df){
   hatdf = data.frame(Values = hatvalues(l_m), Row_Num = row_num, Type = rep('Hat Values', length(row_num)), Point_Type = rep('Leverage', length(row_num)), Bound1 = 2*(k+1)/n, Bound2 = 2*(k+1)/n)
   hatdf$Label = NA
   inds = which(hatvalues(l_m)>2*(k+1)/n)
-  if(length(inds)!= 0){hatdf$Label[inds] = response_v$y[inds]}
+  if(length(inds)!= 0){hatdf$Label[inds] = response_v[,1][inds]}
   #Outliers
   instdf = data.frame(Values = rstandard(l_m), Row_Num = row_num, Type = rep('Internally Standardized Residuals', length(row_num)), Point_Type = rep('Outlier', length(row_num)), Bound1 = 3, Bound2 = -3)
   instdf$Label = NA
   inds = which(rstandard(l_m) > 3 | rstandard(l_m) < -3)
-  if(length(inds)!=0){instdf$Label[inds] = response_v$y[inds]}
+  if(length(inds)!=0){instdf$Label[inds] = response_v[,1][inds]}
   
   extdf = data.frame(Values = rstudent(l_m), Row_Num = row_num, Type = rep('Externally Standardized Residuals', length(row_num)), Point_Type = rep('Outlier', length(row_num)), Bound1 = 3, Bound2 = -3)
   extdf$Label = NA
   inds = which(rstudent(l_m) > 3 | rstudent(l_m) < -3)
-  if(length(inds)!=0){extdf$Label[inds] = response_v$y[inds]}
+  if(length(inds)!=0){extdf$Label[inds] = response_v[,1][inds]}
   
   #Influential
   dfitsdf = data.frame(Values = dffits(l_m), Row_Num = row_num, Type = rep('DEFFITS', length(row_num)),Point_Type = rep('Influential', length(row_num)), Bound1 = 2*sqrt((k+2)/(n-k-2)), Bound2 = -2*sqrt((k+2)/(n-k-2)))
   dfitsdf$Label = NA
   inds = which(dffits(l_m) > 2*sqrt((k+2)/(n-k-2)) | dffits(l_m) < -2*sqrt((k+2)/(n-k-2)))
-  if(length(inds)!=0){dfitsdf$Label[inds] = response_v$y[inds]}
+  if(length(inds)!=0){dfitsdf$Label[inds] = response_v[,1][inds]}
   
   cddf = data.frame(Values = cooks.distance(l_m), Row_Num = row_num, Type = rep("Cook's Distance", length(row_num)),Point_Type = rep('Influential', length(row_num)), Bound1 = 1, Bound2 = 1)
   cddf$Label = NA
   inds = cooks.distance(l_m) > 1
-  if(length(inds)!=0){cddf$Label[inds] = response_v$y[inds]}
+  if(length(inds)!=0){cddf$Label[inds] = response_v[,1][inds]}
   
   cvdf = data.frame(Values = covratio(l_m), Row_Num = row_num, Type = rep("Covariance Ratio", length(row_num)),Point_Type = rep('Influential', length(row_num)), Bound1 = 1 + 3*(k+1)/n, Bound2 = 1 - 3*(k+1)/n)
   cvdf$Label = NA
   inds = covratio(l_m) > 1 + 3*(k+1)/n | covratio(l_m) < 1 - 3*(k+1)/n
-  if(length(inds)!=0){cvdf$Label[inds] = response_v$y[inds]}
+  if(length(inds)!=0){cvdf$Label[inds] = response_v[,1][inds]}
   
   ret_df = rbind(hatdf, instdf, extdf, dfitsdf, cddf, cvdf)
   return(ret_df)
