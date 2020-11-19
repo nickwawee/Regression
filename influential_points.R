@@ -2,7 +2,7 @@
 ## Author: Nick Wawee
 ## Description:
 #The following function will obtain leverage, influential, and outlier points as determine by six different methods. The methods include hat values, internal and external standardized residuals, dffts, and covariance ratios. 
-#The inputs are a linear model object (from lm() funciton) and a dataframe that the corresponding linear model was fit.
+#The input is a linear model object (from lm() function).
 #The output is a dataframe that identifies all leverage, influential, and outlier points which can be used in ggplot. 
 #The plot displays which points are determined to be leverage, outlier, or influential which is useful for identifying points that violate assumptions in regression analysis.
 #Example usage is displayed after function end.
