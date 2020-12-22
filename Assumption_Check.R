@@ -47,7 +47,7 @@ Assumption_Check = function(l_m, outp){
   shapres = shapiro.test(l_m$residuals)
   p4 = ggplot(df)+
     geom_qq(aes(sample = residuals))+geom_qq_line(aes(sample= residuals))+
-    plot_opts+ labs(title = paste('Normality of Residuals\n', 'Shaprio Wilks Results:\n W = ', as.character(round(shapres$statistic,3)), ', p = ', as.character(round(shapres$p.value,5))), x = 'Theoretical Values', y = 'Sample Values')+ theme(plot.title = element_text(color = 'red'))
+    plot_opts+ labs(title = paste('Normality of Residuals\n', 'Shapiro Wilks Results:\n W = ', as.character(round(shapres$statistic,3)), ', p = ', as.character(round(shapres$p.value,5))), x = 'Theoretical Values', y = 'Sample Values')+ theme(plot.title = element_text(color = 'red'))
   ggsave(filename = paste(outp,'normres.png',sep=""), plot = p4, dpi = 600, height = 5, width = 5, units = 'in')
   
   pfinal = ggarrange(plotlist = list(p1, p2, p3, p4))
